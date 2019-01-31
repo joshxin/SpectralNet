@@ -5,26 +5,35 @@ Reuters: 2.5 hrs
 cc: 15 min
 '''
 
+# %%
+
+# %%
 import sys, os
 # add directories in src/ to path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
+# sys.path.insert(0,'~/Dropbox/research/Xin/Identifying Sorting and Machine Learning/SpectralNet/src/core')
+sys.path.insert(0,'~/Dropbox/research/Xin/Identifying Sorting and Machine Learning/SpectralNet/src/applications/')
 
 import argparse
 from collections import defaultdict
-
-from core.data import get_data
+# %%
+print(sys.path)
+# %%
+from data import get_data
+# from core.data import get_data
 from spectralnet import run_net
-
+# %%
 # PARSE ARGUMENTS
 parser = argparse.ArgumentParser()
 parser.add_argument('--gpu', type=str, help='gpu number to use', default='')
-parser.add_argument('--dset', type=str, help='gpu number to use', default='mnist')
+parser.add_argument('--dset', type=str, help='gpu number to use', default='cc')
 args = parser.parse_args()
 
 # SELECT GPU
 os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
 params = defaultdict(lambda: None)
+# %%
 
 # SET GENERAL HYPERPARAMETERS
 general_params = {
@@ -167,9 +176,11 @@ elif args.dset == 'cc_semisup':
         }
     params.update(cc_semisup_params)
 
+# %%
 # LOAD DATA
 data = get_data(params)
-
+# data['spectral'].keys()
+# data['spectral']['train_and_test']
 # RUN EXPERIMENT
 x_spectralnet, y_spectralnet = run_net(data, params)
 

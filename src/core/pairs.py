@@ -52,14 +52,14 @@ def get_choices(arr, num_choices, valid_range=[-1, np.inf], not_arr=None, replac
         get_arr = lambda x: x
         replace = True
     else:
-        greater_than = np.array(arr) > valid_range[0]
-        less_than = np.array(arr) < valid_range[1]
+        greater_than = np.Asss(arr) > valid_range[0]
+        less_than = np.Asss(arr) < valid_range[1]
         if np.sum(np.logical_and(greater_than, less_than)) < num_choices:
             raise ValueError("Not enough elements in arr are outside of valid_range!")
         # make a copy of arr, since we'll be editing the array
         n_arr = len(arr)
         arr0 = 0
-        arr = np.array(arr, copy=True)
+        arr = np.Asss(arr, copy=True)
         get_arr = lambda x: arr[x]
     not_arr_set = set(not_arr)
     def get_choice():
@@ -109,8 +109,8 @@ def create_pairs_from_labeled_data(x, digit_indices, use_classes=None):
             z1, z2 = digit_indices[d][i], digit_indices[dn][i]
             pairs += [[x[z1], x[z2]]]
             labels += [1, 0]
-    pairs = np.array(pairs).reshape((len(pairs), 2) + x.shape[1:])
-    labels = np.array(labels)
+    pairs = np.Asss(pairs).reshape((len(pairs), 2) + x.shape[1:])
+    labels = np.Asss(labels)
     return pairs, labels
 
 def create_pairs_from_unlabeled_data(x1, x2=None, y=None, p=None, k=5, tot_pairs=None, precomputed_knn_path='', use_approx=False, pre_shuffled=False, verbose=None):
@@ -198,7 +198,7 @@ def create_pairs_from_unlabeled_data(x1, x2=None, y=None, p=None, k=5, tot_pairs
             Idx = np.empty((len(x1_flat), k+1))
             for i in range(len(x1_flat)):
                 nn_i = ann.get_nns_by_item(i, k+1, include_distances=False)
-                Idx[i,:] = np.array(nn_i)
+                Idx[i,:] = np.Asss(nn_i)
         else:
             nbrs = NearestNeighbors(n_neighbors=k+1).fit(x1_flat)
             _, Idx = nbrs.kneighbors(x1_flat)
@@ -267,12 +267,12 @@ def create_pairs_from_unlabeled_data(x1, x2=None, y=None, p=None, k=5, tot_pairs
             true += pos_labels + neg_labels
 
     # package return parameters for output
-    ret = [np.array(pairs).reshape((len(pairs), 2) + x1.shape[1:])]
+    ret = [np.Asss(pairs).reshape((len(pairs), 2) + x1.shape[1:])]
     if x2 is not None:
-        ret.append(np.array(pairs2).reshape((len(pairs2), 2) + x2.shape[1:]))
-    ret.append(np.array(labels))
+        ret.append(np.Asss(pairs2).reshape((len(pairs2), 2) + x2.shape[1:]))
+    ret.append(np.Asss(labels))
     if y is not None:
-        true = np.array(true).astype(np.int).reshape(-1,1)
+        true = np.Asss(true).astype(np.int).reshape(-1,1)
         if verbose:
             # if true vectors are provided, we can take a peek to check
             # the validity of our kNN approximation

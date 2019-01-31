@@ -120,6 +120,8 @@ def knn_affinity(X, n_nbrs, scale=None, scale_nbr=None, local_scale=None, verbos
 
     return W
 
+def hm_affinity
+
 def full_affinity(X, scale):
     '''
     Calculates the symmetrized full Gaussian affinity matrix, scaled

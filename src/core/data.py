@@ -12,7 +12,8 @@ from keras import backend as K
 from keras.datasets import mnist
 from keras.models import model_from_json
 
-from core import pairs
+# from core import pairs
+import pairs
 
 def get_data(params, data=None):
     '''
